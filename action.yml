@@ -3,8 +3,8 @@ description: A GitHub Action that uses runs Auto-GPT to follow instructions in t
 author: Nicholas Albion
 
 branding:
-  color: ${{ github.action.color }}
-  icon: ${{ github.action.icon }}
+  color: '${{ github.action.color }}'
+  icon: '${{ github.action.icon }}'
 
 inputs:
   openai_key:
@@ -29,4 +29,4 @@ outputs:
 runs:
   using: docker
   image: nalbion/auto-gpt-action
-  args: --ai_role ${{ inputs.ai_role }} --openai_key ${{ inputs.openai_key }} --issue_body ${{ inputs.issue_body }} --issue_number ${{ inputs.issue_number }}
+  args: '--ai_role ${{ inputs.ai_role }} --openai_key ${{ inputs.openai_key }} --issue_body ${{ inputs.issue_body }} --issue_number ${{ inputs.issue_number }}''
