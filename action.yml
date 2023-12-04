@@ -72,7 +72,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh run --continuous --gpt4only --install-plugin-deps
+        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
         AGENT_NAME: autogpt
