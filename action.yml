@@ -51,17 +51,15 @@ runs:
       run: |
         curl -sSL https://install.python-poetry.org | python -
         poetry export -f requirements.txt -o requirements.txt --without-hashes
-        pip uninstall dotenv
-        pip uninstall python-dotenv
-        pip install python-dotenv
+        poetry add python-dotenv
         pip install -r requirements.txt
         pip install auto_gpt_plugin_template
 
-    - name: Install plugins
-      shell: bash
-      working-directory: ./autogpts/autogpt/
-      run: |
-        curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
+    # - name: Install plugins
+    #   shell: bash
+    #   working-directory: ./autogpts/autogpt/
+    #   run: |
+    #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
     - name: Run agent
       shell: bash
