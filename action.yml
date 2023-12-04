@@ -51,8 +51,8 @@ runs:
       run: |
         curl -sSL https://install.python-poetry.org | python -
         poetry export -f requirements.txt -o requirements.txt --without-hashes
-        poetry add python-dotenv
         pip install -r requirements.txt
+        poetry update python-dotenv
         pip install auto_gpt_plugin_template
 
     # - name: Install plugins
