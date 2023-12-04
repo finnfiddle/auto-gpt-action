@@ -6,4 +6,5 @@ COPY scripts/generate-ai-settings.py /generate-ai-settings.py
 
 RUN pip install pyyaml argparse
 
-ENTRYPOINT ["python", "/generate-ai-settings.py"]
+CMD ["python", "/generate-ai-settings.py"]
+# ENTRYPOINT ["python", "/generate-ai-settings.py"]

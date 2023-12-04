@@ -2,7 +2,7 @@ import os
 import yaml
 import argparse
 
-ai_name = 'github-gpt'
+ai_name = 'autodev'
 
 # issue_body = os.environ['issue_body']
 # openai_key = os.environ['openai_key']
