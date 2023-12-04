@@ -1,4 +1,5 @@
-FROM significantgravitas/auto-gpt:latest
+# FROM significantgravitas/auto-gpt:latest
+FROM python:3.9
 
 USER root
 
