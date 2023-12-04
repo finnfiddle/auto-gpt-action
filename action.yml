@@ -32,7 +32,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'significantgravitas/auto-gpt'
+  image: 'docker://significantgravitas/auto-gpt'
   env:
     OPENAI_API_KEY: ${{ inputs.openai_key }}
   args:
