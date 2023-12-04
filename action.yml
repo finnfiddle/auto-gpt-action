@@ -55,16 +55,15 @@ runs:
         poetry update python-dotenv
         pip install auto_gpt_plugin_template
 
-    # - name: Setup instructions
-    #   shell: bash
-    #   working-directory: ./autogpts/autogpt/
-    #   run: |
-    #     docker build -t setup-action ../../
-    #     docker run setup-action \
-    #       --ai_role ${{ inputs.ai_role }} \
-    #       --openai_key ${{ inputs.openai_key }} \
-    #       --issue_body ${{ inputs.issue_body }} \
-    #       --issue_number ${{ inputs.issue_number }}
+    - name: Setup instructions
+      shell: bash
+      working-directory: ./autogpts/autogpt/
+      run: |
+        touch prompt_settings.yaml
+        echo "ai_name: autodev \
+        ai_role: I want you to act as a software developer. \
+        ai_goals: \
+          - ${{ inputs.issue_body }}" > prompt_settings.yaml
 
     # - name: Install plugins
     #   shell: bash
@@ -76,7 +75,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh run --help
+        ./autogpt.sh run
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
         AGENT_NAME: autogpt
