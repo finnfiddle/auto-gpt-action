@@ -1,4 +1,4 @@
-FROM significantgravitas/auto-gpt:0.2.2
+FROM significantgravitas/auto-gpt:latest
 
 USER root
 
@@ -14,8 +14,12 @@ ENV ISSUE_NUMBER=$issue_number
 
 COPY scripts/generate-ai-settings.py /generate-ai-settings.py
 
-RUN pip install pyyaml argparse autogpt
+RUN pip install pyyaml argparse
 
 RUN python /generate-ai-settings.py
 
 # ENTRYPOINT ["python", "/generate-ai-settings.py"]
+
+
+
+            
