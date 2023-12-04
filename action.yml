@@ -66,10 +66,6 @@ runs:
       working-directory: ./autogpts/autogpt/
       run: |
         ./autogpt.sh --help
-      # ./run agent start autogpt
-      # cd autogpts/autogpt
-      # poetry run agbenchmark --mock
-      # poetry run agbenchmark --test=WriteFile
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
         AGENT_NAME: autogpt
