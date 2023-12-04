@@ -65,7 +65,7 @@ jobs:
         # poetry run agbenchmark --mock
         # poetry run agbenchmark --test=WriteFile
         env:
-          OPENAI_API_KEY: ${{ inputs.openai_key }}
+          OPENAI_API_KEY: ${{ github.event.inputs.openai_key }}
           AGENT_NAME: autogpt
           # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
           # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
