@@ -65,7 +65,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh --install-plugin-deps --help
+        ./autogpt.sh --help
       # ./run agent start autogpt
       # cd autogpts/autogpt
       # poetry run agbenchmark --mock
