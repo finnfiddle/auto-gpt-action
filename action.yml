@@ -53,9 +53,11 @@ runs:
 
     - name: Run agent
       shell: bash
+      working-directory: ./autogpts/autogpt/
       run: |
-        ./run agent start autogpt
-        cd autogpts/autogpt
+        ./autogpt.sh --help
+      # ./run agent start autogpt
+      # cd autogpts/autogpt
       # poetry run agbenchmark --mock
       # poetry run agbenchmark --test=WriteFile
       env:
