@@ -12,14 +12,18 @@ on:
       openai_key:
         description: The OpenAI API key.
         required: true
+        type: string
       issue_body:
         description: The body of the issue.
         required: true
+        type: string
       issue_number:
         description: The number of the issue.
         required: true
+        type: string
       ai_role:
         description: The role of the AI.
+        type: string
         default: I want you to act as a software developer who is willing to review the issue described and commit appropriate fixes on a feature branch. When files are mentioned in the goals you will check to see if they exist, and modify them as necessary instead of creating new files. You will run the tests and iterate until all tests pass and then you will exit.  
 
     outputs:
@@ -33,14 +37,18 @@ on:
       openai_key:
         description: The OpenAI API key.
         required: true
+        type: string
       issue_body:
         description: The body of the issue.
         required: true
+        type: string
       issue_number:
         description: The number of the issue.
         required: true
+        type: string
       ai_role:
         description: The role of the AI.
+        type: string
         default: I want you to act as a software developer who is willing to review the issue described and commit appropriate fixes on a feature branch. When files are mentioned in the goals you will check to see if they exist, and modify them as necessary instead of creating new files. You will run the tests and iterate until all tests pass and then you will exit.  
 
     outputs:
@@ -52,18 +60,21 @@ on:
 jobs:
   autodev:
     runs-on: ubuntu-latest # Specify the runner environment
+    # permissions:
+    #   id-token: write
+    #   contents: read
     steps:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1 # Use this action to set up Docker
 
       - name: Setup env
         run: |
-          docker build -t setup-action .
+          "docker build -t setup-action .
           docker run setup-action \
-            --ai_role "${{ github.event.inputs.ai_role }}" \
-            --openai_key "${{ github.event.inputs.openai_key }}" \
-            --issue_body "${{ github.event.inputs.issue_body }}" \
-            --issue_number "${{ github.event.inputs.issue_number }}"
+            --ai_role ${{ inputs.ai_role }} \
+            --openai_key ${{ github.event.inputs.openai_key }} \
+            --issue_body ${{ github.event.inputs.issue_body }} \
+            --issue_number ${{ github.event.inputs.issue_number }}"
 
       - name: Run autogpt
         uses: adambirds/docker-compose-action@v1.3.0
