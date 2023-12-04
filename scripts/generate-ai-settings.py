@@ -3,11 +3,11 @@ import yaml
 
 ai_name = 'github-gpt'
 
-issue_body = os.environ['ISSUE_BODY']
-openai_key = os.environ['OPENAI_KEY']
+issue_body = os.environ['issue_body']
+openai_key = os.environ['openai_key']
 
 ai_goals = []
-ai_role = os.environ.get('AI_ROLE', 'A software developer who is willing to review the issue described and commit appropriate fixes on a feature branch.')
+ai_role = os.environ.get('ai_role', 'A software developer who is willing to review the issue described and commit appropriate fixes on a feature branch.')
 
 if '## ai_goals' in issue_body:
     goals_section = issue_body.split('## ai_goals')[1].split('##')[0].strip()
