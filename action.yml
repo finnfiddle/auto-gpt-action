@@ -55,16 +55,16 @@ runs:
         poetry update python-dotenv
         pip install auto_gpt_plugin_template
 
-    - name: Setup instructions
-      shell: bash
-      working-directory: ./autogpts/autogpt/
-      run: |
-        docker build -t setup-action ../../
-        docker run setup-action \
-          --ai_role ${{ inputs.ai_role }} \
-          --openai_key ${{ inputs.openai_key }} \
-          --issue_body ${{ inputs.issue_body }} \
-          --issue_number ${{ inputs.issue_number }}
+    # - name: Setup instructions
+    #   shell: bash
+    #   working-directory: ./autogpts/autogpt/
+    #   run: |
+    #     docker build -t setup-action ../../
+    #     docker run setup-action \
+    #       --ai_role ${{ inputs.ai_role }} \
+    #       --openai_key ${{ inputs.openai_key }} \
+    #       --issue_body ${{ inputs.issue_body }} \
+    #       --issue_number ${{ inputs.issue_number }}
 
     # - name: Install plugins
     #   shell: bash
