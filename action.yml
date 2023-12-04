@@ -51,6 +51,12 @@ runs:
       run: |
         curl -sSL https://install.python-poetry.org | python -
 
+    - name: Install requirements
+      shell: bash
+      # working-directory: ./autogpts/autogpt/
+      run: |
+        pip install -r requirements.txt
+
     - name: Run agent
       shell: bash
       working-directory: ./autogpts/autogpt/
