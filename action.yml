@@ -32,21 +32,23 @@ jobs:
   autodev:
     runs-on: ubuntu-latest # Specify the runner environment
     steps:
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1 # Use this action to set up Docker
+      - name: Print GitHub Context
+      run: echo "The GitHub context is ${{ toJson(github) }}"
+      # - name: Set up Docker
+      #   uses: docker/setup-buildx-action@v1 # Use this action to set up Docker
 
-      - name: Setup env
-        run: |
-          docker build -t setup-action .
-          docker run setup-action \
-            --ai_role "${{ inputs.ai_role }}" \
-            --openai_key "${{ inputs.openai_key }}" \
-            --issue_body "${{ inputs.issue_body }}" \
-            --issue_number "${{ inputs.issue_number }}"
+      # - name: Setup env
+      #   run: |
+      #     docker build -t setup-action .
+      #     docker run setup-action \
+      #       --ai_role "${{ inputs.ai_role }}" \
+      #       --openai_key "${{ inputs.openai_key }}" \
+      #       --issue_body "${{ inputs.issue_body }}" \
+      #       --issue_number "${{ inputs.issue_number }}"
 
-      - name: Run autogpt
-        uses: adambirds/docker-compose-action@v1.3.0
-        # Add additional configurations if necessary
+      # - name: Run autogpt
+      #   uses: adambirds/docker-compose-action@v1.3.0
+      #   # Add additional configurations if necessary
 
             
 
