@@ -1,10 +1,11 @@
-FROM python:3.9
+FROM significantgravitas/auto-gpt:0.2.2
 
 USER root
 
 COPY scripts/generate-ai-settings.py /generate-ai-settings.py
 
-RUN pip install --verbose pyyaml argparse autogpt && pip list
+RUN pip install pyyaml argparse
 
-CMD ["python", "/generate-ai-settings.py"]
+RUN python /generate-ai-settings.py
+
 # ENTRYPOINT ["python", "/generate-ai-settings.py"]
