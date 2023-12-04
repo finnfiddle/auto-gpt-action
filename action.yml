@@ -51,17 +51,17 @@ runs:
       run: |
         curl -sSL https://install.python-poetry.org | python -
 
-    - name: Install requirements
+    - name: Install plugins
       shell: bash
-      # working-directory: ./autogpts/autogpt/
+      working-directory: ./autogpts/autogpt/
       run: |
-        pip install -r requirements.txt
+        curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
     - name: Run agent
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh --help
+        ./autogpt.sh --install-plugin-deps --help
       # ./run agent start autogpt
       # cd autogpts/autogpt
       # poetry run agbenchmark --mock
