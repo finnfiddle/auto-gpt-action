@@ -33,35 +33,34 @@ outputs:
 runs:
   using: "composite"
   steps:
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: true
-          repository: Significant-Gravitas/AutoGPT
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: true
+        repository: Significant-Gravitas/AutoGPT
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
 
-      - name: Install Poetry
-        working-directory: ./autogpts/autogpt/
-        run: |
-          curl -sSL https://install.python-poetry.org | python -
+    - name: Install Poetry
+      working-directory: ./autogpts/autogpt/
+      run: |
+        curl -sSL https://install.python-poetry.org | python -
 
-      - name: Run agent
-        run: |
-          ./run agent start autogpt
-          cd autogpts/autogpt
-        # poetry run agbenchmark --mock
-        # poetry run agbenchmark --test=WriteFile
-        env:
-          OPENAI_API_KEY: ${{ inputs.openai_key }}
-          AGENT_NAME: autogpt
-          # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
-          # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
-          # HELICONE_CACHE_ENABLED: false
-          # HELICONE_PROPERTY_AGENT: autogpt
-          # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
+    - name: Run agent
+      run: |
+        ./run agent start autogpt
+        cd autogpts/autogpt
+      # poetry run agbenchmark --mock
+      # poetry run agbenchmark --test=WriteFile
+      env:
+        OPENAI_API_KEY: ${{ inputs.openai_key }}
+        AGENT_NAME: autogpt
+        # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
+        # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
+        # HELICONE_CACHE_ENABLED: false
+        # HELICONE_PROPERTY_AGENT: autogpt
+        # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
