@@ -2,9 +2,9 @@ name: Auto-GPT-Action
 description: A GitHub Action that uses runs Auto-GPT to follow instructions in the issue description.
 author: Nicholas Albion
 
-branding:
-  color: '${{ github.action.color }}'
-  icon: '${{ github.action.icon }}'
+# branding:
+#   color: '${{ github.action.color }}'
+#   icon: '${{ github.action.icon }}'
 
 inputs:
   openai_key:
