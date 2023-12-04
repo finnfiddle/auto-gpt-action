@@ -14,7 +14,7 @@ ENV ISSUE_NUMBER=$issue_number
 
 COPY scripts/generate-ai-settings.py /generate-ai-settings.py
 
-RUN pip install pyyaml argparse
+RUN pip install pyyaml argparse autogpt
 
 RUN python /generate-ai-settings.py
 
