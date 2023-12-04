@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest # Specify the runner environment
     steps:
       - name: Print GitHub Context
-        run: echo "The GitHub context is ${{ toJson(github) }}"
+        run: echo "The GitHub context is ${{ toJson(inputs) }}"
       # - name: Set up Docker
       #   uses: docker/setup-buildx-action@v1 # Use this action to set up Docker
 
