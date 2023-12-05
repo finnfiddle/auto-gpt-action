@@ -8,7 +8,7 @@ services:
       - "8000:8000"  # remove this if you just want to run a single agent in TTY mode
     profiles: ["exclude-from-up"]
     volumes:
-      - ./data:/app/data
+      # - ./data:/app/data
       ## allow auto-gpt to write logs to disk
       - ./logs:/app/logs
       ## uncomment following lines if you want to make use of these files
@@ -19,6 +19,9 @@ services:
       - type: bind
         source: ./ai_settings.yaml
         target: /app/ai_settings.yaml
+      - type: bind
+        source: ./data
+        target: /app/data
       - type: bind
         source: ./.env
         target: /app/.env
