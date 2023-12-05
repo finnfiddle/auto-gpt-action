@@ -29,6 +29,10 @@ inputs:
     description: The owner and repository name. For example, octocat/Hello-World.
     required: true
     type: string
+  project_description:
+    description: Description of the service repository, its structure, technologies used, and what it does.
+    required: true
+    type: string
   ref_name:
     description: The short ref name of the branch or tag that triggered the workflow run. This value matches the branch or tag name shown on GitHub. For example, feature-branch-1.
     required: true
@@ -83,11 +87,11 @@ runs:
         fetch-depth: 0
         submodules: true
         repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref_name }}
 
     - name: Create and checkout new branch
       shell: bash
       run: |
-        git checkout ${{ inputs.ref_name }}
         git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
@@ -100,7 +104,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "${{ inputs.issue_body }}" --ai-name "auto-dev" --ai-role "I want you to act as a software developer."
+        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
         AGENT_NAME: autogpt
@@ -109,6 +113,12 @@ runs:
         # HELICONE_CACHE_ENABLED: false
         # HELICONE_PROPERTY_AGENT: autogpt
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
+
+    - name: Create and checkout new branch
+      working-directory: ./autogpts/autogpt/workspace
+      shell: bash
+      run: |
+        touch test.md
 
     - name: Commit changes
       shell: bash
