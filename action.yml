@@ -81,7 +81,7 @@ runs:
       with:
         repository: ${{ inputs.repository }}
         token: ${{ inputs.github_token }}
-        path: ./data/${{ inputs.repository_name }}
+        path: ${{ github.workspace }}/data/${{ inputs.repository_name }}
         # ref: ${{ inputs.ref_name }}
 
     # - name: Install plugins
