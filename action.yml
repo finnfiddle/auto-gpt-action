@@ -77,8 +77,8 @@ runs:
       shell: bash
       # working-directory: ./autogpts/autogpt/
       run: |
-        touch prompt_settings.yaml
-        printf "ai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n  - Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > prompt_settings.yaml
+        touch /prompt_settings.yaml
+        printf "ai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n  - Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > /prompt_settings.yaml
 
     - name: Checkout service repository
       uses: actions/checkout@v3
@@ -111,7 +111,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --prompt-settings ../../prompt_settings.yaml --manual
+        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --prompt-settings /prompt_settings.yaml
       # run: |
       #   ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
       env:
