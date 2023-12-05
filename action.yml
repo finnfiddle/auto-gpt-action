@@ -73,8 +73,8 @@ runs:
       shell: bash
       working-directory: ./
       run: |
-        touch .env
-        printf "OPENAI_API_KEY=${{ inputs.openai_key }}" > .env
+        touch ".env"
+        printf "OPENAI_API_KEY=${{ inputs.openai_key }}" > ".env"
 
     - name: Checkout External Repository
       uses: actions/checkout@v2
@@ -96,7 +96,7 @@ runs:
       run: |
         ls
         cd data && ls & cd ..
-        cat .env
+        cat ".env"
         cat ai_settings.yaml
         docker pull significantgravitas/auto-gpt
         docker compose run --rm auto-gpt --continuous --continuous-limit 999 --ai-settings ./ai_settings.yaml
