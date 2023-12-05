@@ -95,6 +95,7 @@ runs:
       working-directory: ./
       run: |
         ls
+        cd data && ls
         cat .env
         cat ai_settings.yaml
         docker pull significantgravitas/auto-gpt
