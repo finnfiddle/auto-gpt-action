@@ -140,7 +140,8 @@ runs:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
 
-    - name: Build image
+    - name: Run AutoGPT
+      shell: bash
       run: docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
 
     # TODO remove
