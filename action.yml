@@ -7,16 +7,24 @@ author: Finn Fitzsimons
 #   icon: '${{ github.action.icon }}'
 
 inputs:
-  openai_key:
-    description: The OpenAI API key.
-    required: true
-    type: string
+  # openai_key:
+  #   description: The OpenAI API key.
+  #   required: true
+  #   type: string
   issue_body:
     description: The body of the issue.
     required: true
     type: string
   issue_number:
     description: The number of the issue.
+    required: true
+    type: string
+  repository:
+    description: The owner and repository name. For example, octocat/Hello-World.
+    required: true
+    type: string
+  ref_name:
+    description: The short ref name of the branch or tag that triggered the workflow run. This value matches the branch or tag name shown on GitHub. For example, feature-branch-1.
     required: true
     type: string
   ai_role:
@@ -62,19 +70,18 @@ runs:
         touch prompt_settings.yaml
         printf "ai_name: autodev\nai_role: I want you to act as a software developer.\nai_goals:\n  - ${{ inputs.issue_body }}" > prompt_settings.yaml
 
-    # - name: Checkout service repository
-    #   uses: actions/checkout@v3
-    #   working-directory: ./autogpts/autogpt/workspace
-    #   with:
-    #     fetch-depth: 0
-    #     submodules: true
-    #     repository: ${{ inputs.repo }}
+    - name: Checkout service repository
+      uses: actions/checkout@v3
+      working-directory: ./autogpts/autogpt/workspace
+      with:
+        fetch-depth: 0
+        submodules: true
+        repository: ${{ inputs.repository }}
 
-    # - name: Create and checkout new branch
-    #   run: |
-    #     git checkout finn
-    #     git checkout -b autodev/1
-    #     # git checkout -b autodev/${{ github.event.issue.number }}
+    - name: Create and checkout new branch
+      run: |
+        git checkout ${{ inputs.ref_name }}
+        git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
     #   shell: bash
@@ -88,7 +95,7 @@ runs:
       run: |
         ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt
       env:
-        OPENAI_API_KEY: ${{ inputs.openai_key }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
         AGENT_NAME: autogpt
         # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
         # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
@@ -96,19 +103,18 @@ runs:
         # HELICONE_PROPERTY_AGENT: autogpt
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
-    # - name: Commit changes
-    #   run: |
-    #     git config --global user.email 'github-actions@github.com'
-    #     git config --global user.name 'Auto-GPT and GitHub Actions'
-    #     git add -A
-    #     git commit -m "Autodev: 1"
-    #   # git commit -m "Autodev: ${{ github.event.issue.number }}"
+    - name: Commit changes
+      run: |
+        git config --global user.email 'github-actions@github.com'
+        git config --global user.name 'Auto-GPT and GitHub Actions'
+        git add -A
+        git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}"
 
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.AUTO_MERGE_GITHUB_TOKEN }}
-    #     branch: autodev/1
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.AUTODEV_GITHUB_TOKEN }}
+        branch: autodev/${{ inputs.issue_number }}
 
     # - name: Update issue
     #   uses: peter-evans/create-or-update-comment@v1
