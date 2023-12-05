@@ -55,12 +55,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # - name: Checkout autogpt
-    #   uses: actions/checkout@v3
-    #   with:
-    #     fetch-depth: 0
-    #     submodules: true
-    #     repository: Significant-Gravitas/AutoGPT
 
     - name: Checkout autodev
       uses: actions/checkout@v3
@@ -68,30 +62,12 @@ runs:
         repository: printify/autodev
         ref: finn2
 
-    # - name: Set up Python 3.10
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: '3.10'
-
-    # - name: Install Poetry
-    #   shell: bash
-    #   working-directory: ./autogpts/autogpt/
-    #   run: |
-    #     curl -sSL https://install.python-poetry.org | python -
-    #     poetry export -f requirements.txt -o requirements.txt --without-hashes
-    #     pip install -r requirements.txt --quiet
-    #     poetry update python-dotenv
-    #     pip install auto_gpt_plugin_template --quiet
-
-    # - name: Checkout
-    #   uses: actions/checkout@v1
-
     - name: Setup instructions
       shell: bash
       working-directory: ./
       run: |
         touch ai_settings.yaml
-        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > ai_settings.yaml
+        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- Inside the data directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > ai_settings.yaml
 
     - name: Setup env
       shell: bash
@@ -109,76 +85,24 @@ runs:
     #     repository: ${{ inputs.repository }}
     #     ref: ${{ inputs.ref_name }}
 
-    # - name: Create and checkout new branch
-    #   shell: bash
-    #   working-directory: ./data
-    #   run: |
-    #     git checkout -b autodev/${{ inputs.issue_number }}
+    - name: Create data directory
+      shell: bash
+      working-directory: .
+      run: |
+        mkdir data
+
+    - name: Create and checkout new branch
+      shell: bash
+      working-directory: ./data
+      run: |
+        git clone ${{ inputs.repository }}:${{ inputs.ref_name }}
+        git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
     #   shell: bash
     #   working-directory: ./autogpts/autogpt/
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
-
-    # TODO remove
-    # - name: debug
-    #   shell: bash
-    #   working-directory: ./
-    #   run: |
-    #     cat ./ai_settings.yaml
-    #     echo "========"
-    #     echo "========"
-    #     cat ./prompt_settings.yaml
-    #     echo "========"
-    #     echo "========"
-
-    # - name: Run agent
-    #   shell: bash
-    #   working-directory: ./autogpts/autogpt
-    #   run: |
-    #     ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --debug
-    #   # --ai-settings ./ai_settings.yaml --prompt-settings ./prompt_settings.yaml
-    #   # run: |
-    #   #   ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
-    #   env:
-    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
-    #     AGENT_NAME: autogpt
-    #     # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
-    #     # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
-    #     # HELICONE_CACHE_ENABLED: false
-    #     # HELICONE_PROPERTY_AGENT: autogpt
-    #     # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
-
-    # - name: Docker Compose Action
-    #   uses: isbang/compose-action@v1.5.1
-    #   # args: --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-    #   env:
-    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
-
-    # - name: Run AutoGPT
-    #   shell: bash
-    #   working-directory: ./
-    #   run: |
-    #     ls
-    #     pwd
-    #     docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-    #   env:
-    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
-
-    # - name: Run AutoGPT
-    #   runs-on: ubuntu-latest
-    #   container:
-    #     image: significantgravitas/auto-gpt
-    #     # build:
-    #     #   context: ../..
-    #     #   dockerfile: ./ci/docker/tester.Dockerfile
-    #     command: /usr/bin/docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-    #     # depends_on:
-    #     #   postgres:
-    #     #     condition: service_healthy
-    #     env:
-    #       OPENAI_API_KEY: ${{ inputs.openai_key }}
 
     - name: Run AutoGPT
       shell: bash
@@ -187,14 +111,6 @@ runs:
         ls
         docker pull significantgravitas/auto-gpt
         docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-
-    # TODO remove
-    # - name: debug
-    #   working-directory: ./autogpts/autogpt/workspace
-    #   shell: bash
-    #   run: |
-    #     touch test.md
-    #     echo "Hello world" > test.md
 
     - name: Commit changes
       shell: bash
