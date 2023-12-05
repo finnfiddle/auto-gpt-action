@@ -143,27 +143,27 @@ runs:
     #   env:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
-    - name: Run AutoGPT
-      shell: bash
-      working-directory: ./
-      run: |
-        ls
-        pwd
-        docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_key }}
-
     # - name: Run AutoGPT
-    #   image: significantgravitas/auto-gpt
-    #   # build:
-    #   #   context: ../..
-    #   #   dockerfile: ./ci/docker/tester.Dockerfile
-    #   command: /usr/bin/docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-    #   # depends_on:
-    #   #   postgres:
-    #   #     condition: service_healthy
-    #   environment:
+    #   shell: bash
+    #   working-directory: ./
+    #   run: |
+    #     ls
+    #     pwd
+    #     docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+    #   env:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
+
+    - name: Run AutoGPT
+      image: significantgravitas/auto-gpt
+      # build:
+      #   context: ../..
+      #   dockerfile: ./ci/docker/tester.Dockerfile
+      command: /usr/bin/docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+      # depends_on:
+      #   postgres:
+      #     condition: service_healthy
+      environment:
+        OPENAI_API_KEY: ${{ inputs.openai_key }}
 
     # - name: Run AutoGPT
     #   shell: bash
