@@ -117,7 +117,7 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-settings ./ai_settings.yaml
+        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-settings ./ai_settings.yaml --debug
       # run: |
       #   ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
       env:
