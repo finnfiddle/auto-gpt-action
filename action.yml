@@ -106,7 +106,7 @@ runs:
         cat ".env"
         echo OPENAI_API_KEY
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
+        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --volume ./data
 
     - name: Commit changes
       shell: bash
