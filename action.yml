@@ -87,20 +87,20 @@ runs:
         touch ./ai_settings.yaml
         printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > ./ai_settings.yaml
 
-    - name: Checkout service repository
-      uses: actions/checkout@v3
-      with:
-        path: ./data
-        fetch-depth: 0
-        submodules: true
-        repository: ${{ inputs.repository }}
-        ref: ${{ inputs.ref_name }}
+    # - name: Checkout service repository
+    #   uses: actions/checkout@v3
+    #   with:
+    #     path: ./data
+    #     fetch-depth: 0
+    #     submodules: true
+    #     repository: ${{ inputs.repository }}
+    #     ref: ${{ inputs.ref_name }}
 
-    - name: Create and checkout new branch
-      shell: bash
-      working-directory: ./data
-      run: |
-        git checkout -b autodev/${{ inputs.issue_number }}
+    # - name: Create and checkout new branch
+    #   shell: bash
+    #   working-directory: ./data
+    #   run: |
+    #     git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
     #   shell: bash
@@ -153,27 +153,27 @@ runs:
     #   env:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
-    - name: Run AutoGPT
-      runs-on: ubuntu-latest
-      container:
-        image: significantgravitas/auto-gpt
-        # build:
-        #   context: ../..
-        #   dockerfile: ./ci/docker/tester.Dockerfile
-        command: /usr/bin/docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-        # depends_on:
-        #   postgres:
-        #     condition: service_healthy
-        env:
-          OPENAI_API_KEY: ${{ inputs.openai_key }}
-
     # - name: Run AutoGPT
-    #   shell: bash
-    #   working-directory: ./
-    #   run: |
-    #     ls
-      # docker pull significantgravitas/auto-gpt
-      # docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml --help
+    #   runs-on: ubuntu-latest
+    #   container:
+    #     image: significantgravitas/auto-gpt
+    #     # build:
+    #     #   context: ../..
+    #     #   dockerfile: ./ci/docker/tester.Dockerfile
+    #     command: /usr/bin/docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+    #     # depends_on:
+    #     #   postgres:
+    #     #     condition: service_healthy
+    #     env:
+    #       OPENAI_API_KEY: ${{ inputs.openai_key }}
+
+    - name: Run AutoGPT
+      shell: bash
+      working-directory: ./
+      run: |
+        ls
+        docker pull significantgravitas/auto-gpt
+        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml --help
 
     # TODO remove
     # - name: debug
