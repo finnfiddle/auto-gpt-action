@@ -90,12 +90,16 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
+    - name: debug
+      shell: bash
+      working-directory: ./data
+      run: |
+        ls
+    
     - name: Run AutoGPT
       shell: bash
       working-directory: ./
       run: |
-        ls
-        cd data && ls & cd ..
         cat ".env"
         cat ai_settings.yaml
         docker pull significantgravitas/auto-gpt
