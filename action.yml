@@ -67,7 +67,7 @@ runs:
       working-directory: ./
       run: |
         touch ai_settings.yaml
-        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- List the files in the container\- Inside the data directory (but maybe somewhere other directory) there is a GIT software repository cloned from ${{ inputs.repository }} which is a ${{ inputs.project_description }}. Your task is to first list all files and directorys in the container, then do the following: ${{ inputs.issue_body }}. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase. Give a summary of what you did as output." > ai_settings.yaml
+        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- List the files in the container\- Inside the svc directory (but maybe somewhere other directory) there is a GIT software repository cloned from ${{ inputs.repository }} which is a ${{ inputs.project_description }}. Your task is to first list all files and directorys in the container, then do the following: ${{ inputs.issue_body }}. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase. Give a summary of what you did as output." > ai_settings.yaml
 
     - name: Setup env
       shell: bash
@@ -81,7 +81,7 @@ runs:
       with:
         repository: ${{ inputs.repository }}
         token: ${{ inputs.github_token }}
-        path: ./data/${{ inputs.repository_name }}
+        path: ./svc/${{ inputs.repository_name }}
         # ref: ${{ inputs.ref_name }}
 
     # - name: Install plugins
@@ -106,11 +106,11 @@ runs:
         cat ".env"
         echo OPENAI_API_KEY
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --volume ./data
+        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
 
     - name: Commit changes
       shell: bash
-      working-directory: ./data/${{ inputs.repository_name }}
+      working-directory: ./svc/${{ inputs.repository_name }}
       run: |
         git config --global user.email 'github-actions@github.com'
         git config --global user.name 'Autodev'
@@ -127,7 +127,7 @@ runs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5.0.2
       with:
-        path: ./data/${{ inputs.repository_name }}
+        path: ./svc/${{ inputs.repository_name }}
         token: ${{ inputs.github_token }}
         branch: autodev/${{ inputs.issue_number }}
 
