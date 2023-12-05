@@ -89,7 +89,7 @@ runs:
       uses: actions/checkout@v2
       with:
         repository: ${{ inputs.repository }}
-        token: ${{ inputs.autodev_github_token }}
+        token: ${{ inputs.github_token }}
         path: data
 
     # - name: Create data directory
@@ -131,7 +131,7 @@ runs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ inputs.autodev_github_token }}
+        github_token: ${{ inputs.github_token }}
         branch: autodev/${{ inputs.issue_number }}
 
     # - name: Update issue
