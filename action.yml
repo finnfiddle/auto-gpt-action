@@ -77,6 +77,9 @@ runs:
     #     poetry update python-dotenv
     #     pip install auto_gpt_plugin_template --quiet
 
+    - name: Checkout
+      uses: actions/checkout@v1
+
     - name: Setup instructions
       shell: bash
       working-directory: ./
@@ -140,22 +143,36 @@ runs:
     #   env:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
+    - name: Start containers
+      run: OPENAI_API_KEY=${{ inputs.openai_key }} docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
 
-    - name: Run AutoGPT
-      shell: bash
-      working-directory: ./
-      run: |
-        ls
+    # - name: Run AutoGPT
+    #   image: significantgravitas/auto-gpt
+    #   # build:
+    #   #   context: ../..
+    #   #   dockerfile: ./ci/docker/tester.Dockerfile
+    #   command: /usr/bin/docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+    #   # depends_on:
+    #   #   postgres:
+    #   #     condition: service_healthy
+    #   environment:
+    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
+
+    # - name: Run AutoGPT
+    #   shell: bash
+    #   working-directory: ./
+    #   run: |
+    #     ls
       # docker pull significantgravitas/auto-gpt
       # docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml --help
 
     # TODO remove
-    - name: debug
-      working-directory: ./autogpts/autogpt/workspace
-      shell: bash
-      run: |
-        touch test.md
-        echo "Hello world" > test.md
+    # - name: debug
+    #   working-directory: ./autogpts/autogpt/workspace
+    #   shell: bash
+    #   run: |
+    #     touch test.md
+    #     echo "Hello world" > test.md
 
     - name: Commit changes
       shell: bash
