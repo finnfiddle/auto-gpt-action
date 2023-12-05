@@ -85,18 +85,25 @@ runs:
     #     repository: ${{ inputs.repository }}
     #     ref: ${{ inputs.ref_name }}
 
-    - name: Create data directory
-      shell: bash
-      working-directory: .
-      run: |
-        mkdir data
+    - name: Checkout External Repository
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.repository }}
+        token: ${{ inputs.autodev_github_token }}
+        path: data
 
-    - name: Create and checkout new branch
-      shell: bash
-      working-directory: ./data
-      run: |
-        git clone -b ${{ inputs.ref_name }} ${{ inputs.repository }}
-        git checkout -b autodev/${{ inputs.issue_number }}
+    # - name: Create data directory
+    #   shell: bash
+    #   working-directory: .
+    #   run: |
+    #     mkdir data
+
+    # - name: Create and checkout new branch
+    #   shell: bash
+    #   working-directory: ./data
+    #   run: |
+    #     git clone -b ${{ inputs.ref_name }} ${{ inputs.repository }}
+    #     git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
     #   shell: bash
