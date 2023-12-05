@@ -114,11 +114,13 @@ runs:
         # HELICONE_PROPERTY_AGENT: autogpt
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
+    # TODO remove
     - name: Create and checkout new branch
       working-directory: ./autogpts/autogpt/workspace
       shell: bash
       run: |
         touch test.md
+        echo "Hello world" > test.md
 
     - name: Commit changes
       shell: bash
