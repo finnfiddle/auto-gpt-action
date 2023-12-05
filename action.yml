@@ -96,7 +96,7 @@ runs:
 
     - name: Create and checkout new branch
       shell: bash
-      working-directory: ./autogpts/autogpt/workspace/${{ inputs.repository_name }}
+      working-directory: /autogpts/autogpt/workspace/${{ inputs.repository_name }}
       run: |
         git checkout -b autodev/${{ inputs.issue_number }}
 
