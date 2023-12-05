@@ -67,7 +67,7 @@ runs:
       working-directory: ./
       run: |
         touch ai_settings.yaml
-        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- Inside the data directory there is a GIT software repository cloned from ${{ inputs.repository }} which is a ${{ inputs.project_description }}. Your task is to first list all files and directorys in the container, then do the following: ${{ inputs.issue_body }}. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." > ai_settings.yaml
+        printf "\nai_name: Autodev\nai_role: I want you to act as a software engineer.\nai_goals:\n- Inside the data directory there is a GIT software repository cloned from ${{ inputs.repository }} which is a ${{ inputs.project_description }}. Your task is to first list all files and directorys in the container, then do the following: ${{ inputs.issue_body }}. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase. Give a summary of what you did as output." > ai_settings.yaml
 
     - name: Setup env
       shell: bash
@@ -90,20 +90,19 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
-    - name: debug
-      shell: bash
-      working-directory: ./data/storefront-merchant-svc-hackathon-fork
-      run: |
-        ls
+    # - name: debug
+    #   shell: bash
+    #   working-directory: ./data/storefront-merchant-svc-hackathon-fork
+    #   run: |
+    #     ls
     
     - name: Run AutoGPT
       shell: bash
       working-directory: ./
       run: |
         cat ".env"
-        cat ai_settings.yaml
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --continuous-limit 999 --ai-settings ./ai_settings.yaml
+        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
 
     - name: Commit changes
       shell: bash
@@ -117,7 +116,15 @@ runs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
+        path: ./data/${{ inputs.repository_name }}
         github_token: ${{ inputs.github_token }}
+        branch: autodev/${{ inputs.issue_number }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5.0.2
+      with:
+        path: ./data/${{ inputs.repository_name }}
+        token: ${{ inputs.github_token }}
         branch: autodev/${{ inputs.issue_number }}
 
     # - name: Update issue
