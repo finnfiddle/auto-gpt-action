@@ -145,7 +145,7 @@ runs:
       working-directory: ./
       run: |
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml --help
 
     # TODO remove
     - name: debug
