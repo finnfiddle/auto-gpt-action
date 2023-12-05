@@ -28,11 +28,11 @@ inputs:
     type: string
     default: I want you to act as a software developer who is willing to review the issue described and commit appropriate fixes on a feature branch. When files are mentioned in the goals you will check to see if they exist, and modify them as necessary instead of creating new files. You will run the tests and iterate until all tests pass and then you will exit.  
 
-secrets:
-  OPENAI_KEY:
-    description: The OpenAI API key.
-    required: true
-    type: string
+# secrets:
+#   OPENAI_KEY:
+#     description: The OpenAI API key.
+#     required: true
+#     type: string
 
 outputs:
   commit_message:
@@ -98,7 +98,7 @@ runs:
       run: |
         ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "${{ inputs.issue_body }}" --ai-name "auto-dev" --ai-role "I want you to act as a software developer."
       env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+        # OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
         AGENT_NAME: autogpt
         # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
         # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
