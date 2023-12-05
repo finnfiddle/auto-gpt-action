@@ -95,7 +95,7 @@ runs:
 
     - name: Create and checkout new branch
       shell: bash
-      working-directory: /data
+      working-directory: ./data
       run: |
         git checkout -b autodev/${{ inputs.issue_number }}
 
