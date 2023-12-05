@@ -100,6 +100,13 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
+
+    - name: Run agent help
+      shell: bash
+      working-directory: ./autogpts/autogpt/
+      run: |
+        ./autogpt.sh run --help
+
     - name: Run agent
       shell: bash
       working-directory: ./autogpts/autogpt/
