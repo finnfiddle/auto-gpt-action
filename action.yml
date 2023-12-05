@@ -100,19 +100,19 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
-    - name: Run agent
-      shell: bash
-      working-directory: ./autogpts/autogpt/
-      run: |
-        ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_key }}
-        AGENT_NAME: autogpt
-        # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
-        # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
-        # HELICONE_CACHE_ENABLED: false
-        # HELICONE_PROPERTY_AGENT: autogpt
-        # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
+    # - name: Run agent
+    #   shell: bash
+    #   working-directory: ./autogpts/autogpt/
+    #   run: |
+    #     ./autogpt.sh run --continuous --gpt4only --skip-news --skip-reprompt --ai-goal "Inside the workspace directory there is a GIT software repository cloned from `${{ inputs.repository }}` which is a `${{ inputs.project_description }}`. Your task is to do the following: `${{ inputs.issue_body }}`. All changes should be covered with tests and all tests should pass. You should modify existing files where possible before creating new ones. Try to follow existing patterns within the codebase." --ai-name "Autodev" --ai-role "I want you to act as a software engineer."
+    #   env:
+    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
+    #     AGENT_NAME: autogpt
+    #     # HELICONE_API_KEY: ${{ secrets.HELICONE_API_KEY }}
+    #     # REQUESTS_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
+    #     # HELICONE_CACHE_ENABLED: false
+    #     # HELICONE_PROPERTY_AGENT: autogpt
+    #     # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
     # TODO remove
     - name: Create and checkout new branch
