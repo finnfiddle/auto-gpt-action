@@ -98,7 +98,7 @@ runs:
         cat .env
         cat ai_settings.yaml
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+        docker compose run --rm auto-gpt --continuous --continuous-limit 999 --ai-settings ./ai_settings.yaml
 
     - name: Commit changes
       shell: bash
