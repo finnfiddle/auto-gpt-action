@@ -19,10 +19,12 @@ inputs:
     description: The body of the issue.
     required: true
     type: string
+    default: Create a new readme file in the repository root explaining quantum computing basics. # TODO remove
   issue_number:
     description: The number of the issue.
     required: true
     type: string
+    default: 1 # TODO remove
   repository:
     description: The owner and repository name. For example, octocat/Hello-World.
     required: true
