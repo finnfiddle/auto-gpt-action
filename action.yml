@@ -135,7 +135,7 @@ runs:
 
     - name: Docker Compose Action
       uses: isbang/compose-action@v1.5.1
-      run: docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+      args: --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
 
