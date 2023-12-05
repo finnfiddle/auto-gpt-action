@@ -111,10 +111,6 @@ runs:
         cat ./ai_settings.yaml
         echo "========"
         echo "========"
-        cat ../../ai_settings.yaml
-        echo "========"
-        echo "========"
-        # ./autogpt.sh run --help
 
     - name: Run agent
       shell: bash
