@@ -55,7 +55,7 @@ outputs:
 runs:
   using: "composite"
   volumes:
-  - data:/app/data
+  - ./data:/app/data
   steps:
 
     - name: Checkout autodev
