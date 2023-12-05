@@ -143,8 +143,12 @@ runs:
     #   env:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
-    - name: Start containers
-      run: OPENAI_API_KEY=${{ inputs.openai_key }} docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+    - name: Run AutoGPT
+      shell: bash
+      working-directory: ./
+      run: docker-compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+      env:
+        OPENAI_API_KEY: ${{ inputs.openai_key }}
 
     # - name: Run AutoGPT
     #   image: significantgravitas/auto-gpt
