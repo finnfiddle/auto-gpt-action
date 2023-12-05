@@ -98,7 +98,7 @@ runs:
       working-directory: ./
       run: |
         touch .env
-        printf "${{ inputs.openai_key }}" > .env
+        printf "OPENAI_API_KEY=${{ inputs.openai_key }}" > .env
 
     # - name: Checkout service repository
     #   uses: actions/checkout@v3
