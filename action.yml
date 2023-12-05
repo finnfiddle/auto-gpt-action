@@ -100,7 +100,7 @@ runs:
 
     - name: Commit changes
       shell: bash
-      working-directory: ./autogpts/autogpt/workspace/${inputs.repository_name}
+      working-directory: ./autogpts/autogpt/workspace/${{ inputs.repository_name }}
       run: |
         git config --global user.email 'github-actions@github.com'
         git config --global user.name 'Autodev'

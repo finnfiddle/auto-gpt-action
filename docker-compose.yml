@@ -4,9 +4,10 @@ services:
     image: significantgravitas/auto-gpt
     env_file:
       - .env
+    ports:
+      - "8000:8000"  # remove this if you just want to run a single agent in TTY mode
     profiles: ["exclude-from-up"]
     volumes:
-      - ./auto_gpt_workspace:/app/auto_gpt_workspace
       - ./data:/app/data
       ## allow auto-gpt to write logs to disk
       - ./logs:/app/logs
