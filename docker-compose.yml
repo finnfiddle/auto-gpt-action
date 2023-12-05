@@ -18,6 +18,9 @@ services:
       - type: bind
         source: ./ai_settings.yaml
         target: /app/ai_settings.yaml
+      - type: bind
+        source: ./.env
+        target: /app/.env
       #- type: bind
       #  source: ./prompt_settings.yaml
       #  target: /app/prompt_settings.yaml
