@@ -77,8 +77,8 @@ runs:
     #     poetry update python-dotenv
     #     pip install auto_gpt_plugin_template --quiet
 
-    - name: Checkout
-      uses: actions/checkout@v1
+    # - name: Checkout
+    #   uses: actions/checkout@v1
 
     - name: Setup instructions
       shell: bash
