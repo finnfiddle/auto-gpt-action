@@ -104,6 +104,7 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
+    # TODO remove
     - name: debug
       shell: bash
       working-directory: ./autogpts/autogpt/
@@ -129,7 +130,7 @@ runs:
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
     # TODO remove
-    - name: Create and checkout new branch
+    - name: debug
       working-directory: ./autogpts/autogpt/workspace
       shell: bash
       run: |
