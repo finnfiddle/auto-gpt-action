@@ -33,7 +33,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
+    - name: Checkout autogpt
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -62,6 +62,20 @@ runs:
         touch prompt_settings.yaml
         printf "ai_name: autodev\nai_role: I want you to act as a software developer.\nai_goals:\n  - ${{ inputs.issue_body }}" > prompt_settings.yaml
 
+    # - name: Checkout service repository
+    #   uses: actions/checkout@v3
+    #   working-directory: ./autogpts/autogpt/workspace
+    #   with:
+    #     fetch-depth: 0
+    #     submodules: true
+    #     repository: ${{ inputs.repo }}
+
+    # - name: Create and checkout new branch
+    #   run: |
+    #     git checkout finn
+    #     git checkout -b autodev/1
+    #     # git checkout -b autodev/${{ github.event.issue.number }}
+
     # - name: Install plugins
     #   shell: bash
     #   working-directory: ./autogpts/autogpt/
@@ -81,3 +95,23 @@ runs:
         # HELICONE_CACHE_ENABLED: false
         # HELICONE_PROPERTY_AGENT: autogpt
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
+
+    # - name: Commit changes
+    #   run: |
+    #     git config --global user.email 'github-actions@github.com'
+    #     git config --global user.name 'Auto-GPT and GitHub Actions'
+    #     git add -A
+    #     git commit -m "Autodev: 1"
+    #   # git commit -m "Autodev: ${{ github.event.issue.number }}"
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.AUTO_MERGE_GITHUB_TOKEN }}
+    #     branch: autodev/1
+
+    # - name: Update issue
+    #   uses: peter-evans/create-or-update-comment@v1
+    #   with:
+    #     issue-number: ${{ github.event.issue.number }}
+    #     body: ${{ steps.run-autodev.outputs.comment_message }}
