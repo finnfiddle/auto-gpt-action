@@ -7,10 +7,6 @@ author: Finn Fitzsimons
 #   icon: '${{ github.action.icon }}'
 
 inputs:
-  # openai_key:
-  #   description: The OpenAI API key.
-  #   required: true
-  #   type: string
   issue_body:
     description: The body of the issue.
     required: true
@@ -31,6 +27,12 @@ inputs:
     description: The role of the AI.
     type: string
     default: I want you to act as a software developer who is willing to review the issue described and commit appropriate fixes on a feature branch. When files are mentioned in the goals you will check to see if they exist, and modify them as necessary instead of creating new files. You will run the tests and iterate until all tests pass and then you will exit.  
+
+secrets:
+  OPENAI_KEY:
+    description: The OpenAI API key.
+    required: true
+    type: string
 
 outputs:
   commit_message:
@@ -79,6 +81,7 @@ runs:
         repository: ${{ inputs.repository }}
 
     - name: Create and checkout new branch
+      shell: bash
       run: |
         git checkout ${{ inputs.ref_name }}
         git checkout -b autodev/${{ inputs.issue_number }}
@@ -104,6 +107,7 @@ runs:
         # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
     - name: Commit changes
+      shell: bash
       run: |
         git config --global user.email 'github-actions@github.com'
         git config --global user.name 'Auto-GPT and GitHub Actions'
