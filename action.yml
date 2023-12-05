@@ -105,9 +105,6 @@ runs:
       shell: bash
       working-directory: ./autogpts/autogpt/
       run: |
-        cat ../../prompt_settings.yaml
-        echo "========"
-        echo "========"
         cat ./prompt_settings.yaml
         echo "========"
         echo "========"
