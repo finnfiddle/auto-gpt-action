@@ -11,6 +11,10 @@ inputs:
     description: The OpenAI API key.
     required: true
     type: string
+  github_token:
+    description: Github API key.
+    required: true
+    type: string
   issue_body:
     description: The body of the issue.
     required: true
@@ -115,7 +119,7 @@ runs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.AUTODEV_GITHUB_TOKEN }}
+        github_token: ${{ inputs.autodev_github_token }}
         branch: autodev/${{ inputs.issue_number }}
 
     # - name: Update issue
