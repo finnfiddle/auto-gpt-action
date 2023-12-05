@@ -112,6 +112,9 @@ runs:
         cat ./ai_settings.yaml
         echo "========"
         echo "========"
+        cat ./prompt_settings.yaml
+        echo "========"
+        echo "========"
 
     - name: Run agent
       shell: bash
