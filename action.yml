@@ -65,7 +65,7 @@ runs:
     - name: Checkout autodev
       uses: actions/checkout@v3
       with:
-        repository: printify/autodev
+        repository: printify/autodev@finn2
 
     # - name: Set up Python 3.10
     #   uses: actions/setup-python@v2
