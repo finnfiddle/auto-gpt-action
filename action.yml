@@ -186,7 +186,7 @@ runs:
       run: |
         ls
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml --help
+        docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
 
     # TODO remove
     # - name: debug
