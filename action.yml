@@ -95,7 +95,7 @@ runs:
       shell: bash
       working-directory: ./data
       run: |
-        git clone ${{ inputs.repository }}:${{ inputs.ref_name }}
+        git clone -b ${{ inputs.ref_name }} ${{ inputs.repository }}
         git checkout -b autodev/${{ inputs.issue_number }}
 
     # - name: Install plugins
