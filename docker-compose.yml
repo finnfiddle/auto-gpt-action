@@ -24,7 +24,7 @@ services:
       # - type: bind
       #   source: ./data
       #   target: /app/data
-      # - type: bind
+      - type: bind
         source: ./.env
         target: /app/.env
       #- type: bind
