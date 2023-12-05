@@ -154,6 +154,7 @@ runs:
     #     OPENAI_API_KEY: ${{ inputs.openai_key }}
 
     - name: Run AutoGPT
+      uses: 'ubuntu'
       image: significantgravitas/auto-gpt
       # build:
       #   context: ../..
