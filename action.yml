@@ -133,11 +133,15 @@ runs:
     #     # HELICONE_PROPERTY_AGENT: autogpt
     #     # REPORT_LOCATION: ${{ format('../../reports/{0}', matrix.agent-name) }}
 
-    - name: Docker Compose Action
-      uses: isbang/compose-action@v1.5.1
-      args: --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_key }}
+    # - name: Docker Compose Action
+    #   uses: isbang/compose-action@v1.5.1
+    #   # args: --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
+    #   env:
+    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
+
+
+    - name: Build image
+      run: docker compose run --rm auto-gpt --continuous --ai-settings ./ai_settings.yaml
 
     # TODO remove
     - name: debug
