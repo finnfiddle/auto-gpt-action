@@ -96,8 +96,7 @@ runs:
       run: |
         ls
         cat ".env"
-        echo OPENAI_API_KEY
-        echo GITHUB_ACTION_PATH
+        echo ${{GITHUB_ACTION_PATH}}
     
     - name: Run AutoGPT
       shell: bash

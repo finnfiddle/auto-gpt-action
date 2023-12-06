@@ -8,7 +8,7 @@ services:
       - "8000:8000"  # remove this if you just want to run a single agent in TTY mode
     profiles: ["exclude-from-up"]
     volumes:
-      # - ./svc:/app/svc
+      - ./svc:/app/svc
 
       # - ./data:/app/data
       ## allow auto-gpt to write logs to disk
@@ -30,9 +30,9 @@ services:
       #- type: bind
       #  source: ./prompt_settings.yaml
       #  target: /app/prompt_settings.yaml
-      - type: mount
-        source: ./svc
-        target: /app/svc
+      # - type: mount
+      #   source: ./svc
+      #   target: /app/svc
 
 # volumes:
 #   data:
