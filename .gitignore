@@ -7,3 +7,5 @@ file_logger.txt
 
 # Visual Studio Code
 .vscode/
+
+ai_settings.yaml
