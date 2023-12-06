@@ -19,12 +19,12 @@ inputs:
     description: The body of the issue.
     required: true
     type: string
-    default: "Add a field to the src/merchant/dto/merchant.dto.ts file found nested in the src directory. Field name - is_robot, type - string, default value - false." # TODO remove
+    # default: "Add a field to the src/merchant/dto/merchant.dto.ts file found nested in the src directory. Field name - is_robot, type - string, default value - false." # TODO remove
   issue_number:
     description: The number of the issue.
     required: true
     type: string
-    default: "1" # TODO remove
+    # default: "1" # TODO remove
   repository:
     description: The owner and repository name. For example, octocat/Hello-World.
     required: true
@@ -91,12 +91,6 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
-    # - name: debug
-    #   shell: bash
-    #   working-directory: ./svc/${{ inputs.repository_name }}
-    #   run: |
-    #     touch test.md
-
     - name: Run AutoGPT
       shell: bash
       id: autogpt
@@ -106,24 +100,6 @@ runs:
       run: |
         docker pull significantgravitas/auto-gpt
         docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
-
-    - name: Commit changes
-      shell: bash
-      working-directory: ./svc/${{ inputs.repository_name }}
-      run: |
-        ls
-        git status
-      # git config --global user.email 'github-actions@github.com'
-      # git config --global user.name 'Autodev'
-      # git add -A
-      # git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}. ${{ steps.autogpt.outputs }}"
-
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     directory: ./svc/${{ inputs.repository_name }}
-    #     github_token: ${{ inputs.github_token }}
-    #     branch: autodev/${{ inputs.issue_number }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5.0.2
