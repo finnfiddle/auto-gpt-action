@@ -97,7 +97,7 @@ runs:
         ls
         cat ".env"
         pwd
-        $(pwd)/svc
+        echo $(pwd)/svc
         echo ${{env.GITHUB_ACTION_PATH}}
         echo "============================"
     
