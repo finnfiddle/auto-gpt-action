@@ -122,12 +122,12 @@ runs:
         git add -A
         git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}. ${{ steps.autogpt.outputs }}"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        directory: ./svc/${{ inputs.repository_name }}
-        github_token: ${{ inputs.github_token }}
-        branch: autodev/${{ inputs.issue_number }}
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     directory: ./svc/${{ inputs.repository_name }}
+    #     github_token: ${{ inputs.github_token }}
+    #     branch: autodev/${{ inputs.issue_number }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5.0.2
