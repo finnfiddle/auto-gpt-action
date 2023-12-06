@@ -103,6 +103,7 @@ runs:
     
     - name: Run AutoGPT
       shell: bash
+      id: autogpt
       working-directory: ./
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
@@ -119,12 +120,12 @@ runs:
         git config --global user.email 'github-actions@github.com'
         git config --global user.name 'Autodev'
         git add -A
-        git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}"
+        git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}. ${{ steps.autogpt.outputs }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        path: ./data/${{ inputs.repository_name }}
+        directory: ./svc/${{ inputs.repository_name }}
         github_token: ${{ inputs.github_token }}
         branch: autodev/${{ inputs.issue_number }}
 
