@@ -99,7 +99,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
       run: |
         docker pull significantgravitas/auto-gpt
-        docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
+        docker compose run  --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
 
     - name: Commit changes
       shell: bash
@@ -107,10 +107,10 @@ runs:
       run: |
         ls
         git status
-        git config --global user.email 'github-actions@github.com'
-        git config --global user.name 'Autodev'
-        git add -A
-        git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}. ${{ steps.autogpt.outputs }}"
+      # git config --global user.email 'github-actions@github.com'
+      # git config --global user.name 'Autodev'
+      # git add -A
+      # git commit -m "Autodev: resolve issue #${{ inputs.issue_number }}. ${{ steps.autogpt.outputs }}"
 
     # - name: Push changes
     #   uses: ad-m/github-push-action@master
