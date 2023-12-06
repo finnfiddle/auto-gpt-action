@@ -19,7 +19,7 @@ inputs:
     description: The body of the issue.
     required: true
     type: string
-    default: "Add a field to the `src/merchant/dto/merchant.dto.ts` file found nested in the `src` directory. Field name: `is_robot`, type string, default value: false." # TODO remove
+    default: "Add a field to the src/merchant/dto/merchant.dto.ts file found nested in the src directory. Field name: is_robot, type string, default value: false." # TODO remove
   issue_number:
     description: The number of the issue.
     required: true
