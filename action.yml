@@ -90,11 +90,14 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
-    # - name: debug
-    #   shell: bash
-    #   working-directory: ./data/storefront-merchant-svc-hackathon-fork
-    #   run: |
-    #     ls
+    - name: debug
+      shell: bash
+      working-directory: ./
+      run: |
+        ls
+        cat ".env"
+        echo OPENAI_API_KEY
+        echo GITHUB_ACTION_PATH
     
     - name: Run AutoGPT
       shell: bash
@@ -102,11 +105,8 @@ runs:
       env:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
       run: |
-        ls
-        cat ".env"
-        echo OPENAI_API_KEY
         docker pull significantgravitas/auto-gpt
-        docker compose run --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
+        docker compose run --volume svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
 
     - name: Commit changes
       shell: bash
