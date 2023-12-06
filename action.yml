@@ -99,7 +99,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
       run: |
         docker pull significantgravitas/auto-gpt
-        docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
+        docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5.0.2
