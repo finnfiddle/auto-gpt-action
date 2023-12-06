@@ -91,15 +91,21 @@ runs:
     #   run: |
     #     curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
 
-    - name: Run AutoGPT
+    - name: debug
       shell: bash
-      id: autogpt
-      working-directory: ./
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_key }}
+      working-directory: ./svc/${{ inputs.repository_name }}
       run: |
-        docker pull significantgravitas/auto-gpt
-        docker compose run  --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
+        touch test.md
+
+    # - name: Run AutoGPT
+    #   shell: bash
+    #   id: autogpt
+    #   working-directory: ./
+    #   env:
+    #     OPENAI_API_KEY: ${{ inputs.openai_key }}
+    #   run: |
+    #     docker pull significantgravitas/auto-gpt
+    #     docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml --install-plugin-deps
 
     - name: Commit changes
       shell: bash
