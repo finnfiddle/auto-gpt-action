@@ -96,7 +96,7 @@ runs:
       run: |
         ls
         cat ".env"
-        echo ${{GITHUB_ACTION_PATH}}
+        echo ${{env.GITHUB_ACTION_PATH}}
     
     - name: Run AutoGPT
       shell: bash
