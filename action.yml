@@ -96,7 +96,10 @@ runs:
       run: |
         ls
         cat ".env"
+        pwd
+        $(pwd)/svc
         echo ${{env.GITHUB_ACTION_PATH}}
+        echo "============================"
     
     - name: Run AutoGPT
       shell: bash
@@ -105,7 +108,7 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai_key }}
       run: |
         docker pull significantgravitas/auto-gpt
-        docker compose run --volume svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
+        docker compose run --volume $(pwd)/svc --rm auto-gpt --continuous --continuous-limit 40 --ai-settings ./ai_settings.yaml
 
     - name: Commit changes
       shell: bash
